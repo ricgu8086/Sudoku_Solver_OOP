@@ -6,22 +6,30 @@ Created on Wed Oct 22 21:24:36 2014
 """
 
 
-import os
 import numpy as np
 from matplotlib.mlab import find
-from sys import platform
 
 
-class recursiveBacktracking:
+
+class recursiveBacktracking(object):
     
-    def __init__(self, original):
-        self.original = original
-        self.matbool = original != 0
+    def __init__(self):
         self.solution = None
         
-    def printer(self, matrix):
+    def init(self,original):
         '''
-        printer takes a sudoku contained in a numpy array and prints it 
+        matrix: array_like
+            It contains the initial sudoku matrix.
+        '''
+        
+        self.original = original
+        self.matbool = original != 0
+        
+        
+        
+    def prettyPrint(self, matrix):
+        '''
+        prettyPrint takes a sudoku contained in a numpy array and prints it 
         in a friendly way.
         
         Parameters
@@ -47,15 +55,13 @@ class recursiveBacktracking:
         print '\n'
 
 
-    def mySquare(self, matrix, a, b):
+    def mySquare(self, a, b):
         '''
         This method returns the square to which the variable in coordinates 
         a,b belongs.
         
         Parameters
         ----------
-        matrix: array_like
-            It contains the sudoku matrix.
         a : int
             Current row.
         b : int
@@ -69,7 +75,7 @@ class recursiveBacktracking:
         '''    
         
         #Converting full grid to collection of 3x3 squares
-        squares = np.swapaxes(matrix.reshape(3,3,3,-1),1,2)    
+        squares = np.swapaxes(self.original.reshape(3,3,3,-1),1,2)    
         
         #mapping indexes a,b in original to c,d in squares
         equiv = {0: [0,1,2], 1: [3,4,5], 2: [6,7,8]}
@@ -79,21 +85,21 @@ class recursiveBacktracking:
         return squares[c,d]
     
 
-    def solver(self):
+    def solve(self):
         ''' 
-        This sudoku solver algorithm is based on the recursive backtracking 
-        algorithm described in [1].
+        The algorithm implemented in this method is based on the recursive 
+        backtracking algorithm described in [1].
     
         [1] http://es.wikipedia.org/wiki/Sudoku_backtracking
         '''
         
-        self.solverRec(0,0, self.original, self.matbool)
+        self.solveRec(0,0)
         
         return self.solution
 
 
 
-    def solverRec(self, i, j, matrix, matbool): 
+    def solveRec(self, i, j): 
         '''
         This is a helper recursive function used by solver.
         
@@ -103,40 +109,35 @@ class recursiveBacktracking:
             Current row.
         j : int
             Current column.
-        matrix: array_like
-            It contains the sudoku matrix.
-        matbool: array_like
-            It reflects the initial state. True indicates initial values that
-            must not be changed. False indicates that the value could be changed.
         '''
         
-        if matbool[i,j] == False:
+        if self.matbool[i,j] == False:
             
             for k in range(1,10):
                 
-                matrix[i,j] = k
+                self.original[i,j] = k
                 
                 #checking if value is plausible in row, col and square
-                if len(find(matrix[i,:] == k)) == 1 and \
-                   len(find(matrix[:,j] == k)) == 1 and \
-                   len(find(self.mySquare(matrix,i,j) == k)) == 1:              
+                if len(find(self.original[i,:] == k)) == 1 and \
+                   len(find(self.original[:,j] == k)) == 1 and \
+                   len(find(self.mySquare(i,j) == k)) == 1:              
                    
                    if i == 8 and j == 8:
-                       self.solution = matrix.copy()
+                       self.solution = self.original.copy()
                    elif i < 8 and j == 8:
-                       self.solverRec(i+1, 0, matrix, matbool)
+                       self.solveRec(i+1, 0)
                    else:
-                       self.solverRec(i, j+1, matrix, matbool)
+                       self.solveRec(i, j+1)
                     
-                matrix[i,j] = 0       
+                self.original[i,j] = 0       
         else:
             
             if i == 8 and j == 8:
-                self.solution = matrix.copy()
+                self.solution = self.original.copy()
             elif i < 8 and j == 8:
-                self.solverRec(i+1, 0, matrix, matbool)
+                self.solveRec(i+1, 0)
             else:
-                self.solverRec(i, j+1, matrix, matbool)    
+                self.solveRec(i, j+1)    
        
        
     def checker(self, matrix):
@@ -169,27 +170,8 @@ class recursiveBacktracking:
                 
                 if len(find(matrix[i,:] == k)) > 1 or \
                    len(find(matrix[:,j] == k)) > 1 or \
-                   len(find(self.mySquare(matrix,i,j) == k)) > 1:
+                   len(find(self.mySquare(i,j) == k)) > 1:
                        
                        valid = False
                        
             return valid
-
-
-def pause():
-    '''
-    This function pause the execution until the user press any key to continue
-    \n(in Windows) or press Enter (in Linux)
-    '''
-    
-    if platform == 'win32':
-        os.system('pause')
-    elif platform == 'linux' or platform == 'linux2':
-        print('Press Enter to continue ...'),
-        try:
-            raw_input()
-        except:
-            pass
-      
-    print('\n')
-  
