@@ -8,7 +8,8 @@ Created on Tue Oct 21 21:57:21 2014
 import numpy as np
 import sys
 import os
-import sudokuAlgorithms
+from sudokuAlgFactory import sudokuAlgFactory
+from sudokuCommonTools import sudokuCommonTools as suTools
 
 
 def pause():
@@ -35,13 +36,16 @@ if __name__ == "__main__":
     #Always parsing the user input
     #---------------------#
     
-    if len(sys.argv) != 3:
-        print('Invalid input. Usage: python sudokuSolver.py CSV_INPUT_PATH CSV_OUTPUT_PATH')
+    if len(sys.argv) != 4:
+        print('Invalid input. Usage: python sudokuSolver.py ALGORITHM_NAME '\
+        'CSV_INPUT_PATH CSV_OUTPUT_PATH\n In this version only Backtracking '\
+        'algorithm is implemented')
         pause()
         sys.exit(1)
     
-    csv_input_path = sys.argv[1]
-    csv_output_path = sys.argv[2] 
+    algorithm_name = sys.argv[1]
+    csv_input_path = sys.argv[2]
+    csv_output_path = sys.argv[3]
     
     
     try:
@@ -72,11 +76,11 @@ if __name__ == "__main__":
     #---------------------#
     
     
-    algo = sudokuAlgorithms.create('Backtracking')
-    algo.init(matrix)
+    algo = sudokuAlgFactory.create(algorithm_name)
+    algo.setInitialGrid(matrix)
     
     print('\nThis is the given sudoku:\n\n')
-    algo.prettyPrint(algo.original)
+    suTools.prettyPrint(algo.original)
     
     print('Please, wait while solving ...\n')
     solution = algo.solve()
@@ -85,7 +89,7 @@ if __name__ == "__main__":
     pause()
     
     print('This is the solved sudoku:\n\n')
-    algo.prettyPrint(algo.solution)
+    suTools.prettyPrint(algo.solution)
     pause()
     
     print('Saving in ' + csv_output_path + ' ...\n')
