@@ -7,7 +7,7 @@ Created on Tue Oct 21 21:57:21 2014
 
 import numpy as np
 import sys
-import sudokuLib as sdk
+import sudokuClass as sdk
 
 
 #Always parsing the user input
@@ -49,18 +49,19 @@ if matrix.shape != (9,9) or\
 
 #---------------------#
 
+algorithm = sdk.recursiveBacktracking(matrix)
 
 print('\nThis is the given sudoku:\n\n')
-sdk.sudokuPrinter(matrix)
+algorithm.printer(algorithm.original)
 
 print('Please, wait while solving ...\n')
-solution = sdk.sudokuSolver(matrix)
+solution = algorithm.solver()
     
 print('Solving process already done')
 sdk.pause()
 
 print('This is the solved sudoku:\n\n')
-sdk.sudokuPrinter(solution)
+algorithm.printer(algorithm.solution)
 sdk.pause()
 
 print('Saving in ' + csv_output_path + ' ...\n')
