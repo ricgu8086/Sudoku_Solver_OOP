@@ -3,7 +3,7 @@ Sudoku_Solver_OOP
 
 This is the object-oriented version of a sudoku solver I developed for the Insight Data Engineering Fellows Program.
 
-This desing uses the Factory Method pattern to allows interchange the algorithm without modifying the main program (sudokuSolver.py), thus reducing the coupling.
+This design uses the Factory Method pattern to allows interchange the algorithm without modifying the main program (sudokuSolver.py), thus reducing the coupling.
 
 By now, there is only one algorithm supported and is called *recursive Backtracking*. It is based on the recursive backtracking algorithm described in [1].
 
