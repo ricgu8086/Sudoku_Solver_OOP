@@ -7,10 +7,24 @@ This design uses the Factory Method pattern to allows interchange the algorithm 
 
 By now, there is only one algorithm supported and it's called *Backtracking*. It is based on the recursive backtracking algorithm described in [1].
 
-In **sudokus_for_testing** directory there are sudokus of different complexity levels for testing the application.
+In `sudokus_for_testing` directory there are sudokus of different complexity levels for testing the application.
+
+Requirements
+============
+
+* NumPy.
+  As described in their web "NumPy is the fundamental package for scientific computing with Python".
+  
+  It can be downloaded from [2].
+
+* Matplotlib.
+
+  It is described as "python 2D plotting library which produces publication quality figures in a variety of hardcopy    formats and interactive environments across platforms".
+  
+  It can be downloaded from [3].
 
 An example of use:
-
+==================
 >~~~
 >>>> python sudokuSolver.py Backtracking E:/sudokus_for_testing/fiendish.csv E:/sudokus_for_testing/sudokuOUT.csv
 >
@@ -63,4 +77,11 @@ An example of use:
 >>>> 
 >~~~
 
+References
+==========
+
 [1] http://es.wikipedia.org/wiki/Sudoku_backtracking
+
+[2] http://www.numpy.org/
+
+[3] http://matplotlib.org/
