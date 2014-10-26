@@ -27,7 +27,7 @@ class sudokuAlgFactory(object):
         a sudoku.
     '''
     
-    availableAlgorithms = {'Backtracking': recursiveBacktracking()}
+    availableAlgorithms = {'Backtracking': recursiveBacktracking}
     
     @staticmethod
     def create(name):
@@ -42,5 +42,5 @@ class sudokuAlgFactory(object):
             this is the name of the selected algorithm.
         '''
         
-        return sudokuAlgFactory.availableAlgorithms[name]
+        return sudokuAlgFactory.availableAlgorithms[name]()
         
