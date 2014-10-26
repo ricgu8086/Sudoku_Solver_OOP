@@ -89,7 +89,8 @@ class sudokuCommonTools(object):
                        valid = False
                        
             return valid
-            
+          
+          
     @staticmethod
     def inputChecker(matrix):
         '''
@@ -129,9 +130,7 @@ class sudokuCommonTools(object):
                            valid = False
                        
             return valid
-        
-        
-        
+  
         
     @staticmethod
     def mySquare(matrix, a, b):
