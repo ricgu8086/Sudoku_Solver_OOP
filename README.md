@@ -5,7 +5,7 @@ This is the object-oriented version of a sudoku solver I developed for the Insig
 
 This design uses the Factory Method pattern to allows interchange the algorithm without modifying the main program (sudokuSolver.py), thus reducing the coupling.
 
-By now, there is only one algorithm supported and is called *recursive Backtracking*. It is based on the recursive backtracking algorithm described in [1].
+By now, there is only one algorithm supported and is called *Backtracking*. It is based on the recursive backtracking algorithm described in [1].
 
 In **sudokus_for_testing** directory there are sudokus of different complexity levels for testing the application.
 
