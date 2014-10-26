@@ -1,16 +1,18 @@
-Sudoku_Solver_Procedural
-========================
+Sudoku_Solver_OOP
+=================
 
-This is the procedural version of a sudoku solver I developed for the Insight Data Engineering Fellows Program.
+This is the object-oriented version of a sudoku solver I developed for the Insight Data Engineering Fellows Program.
 
-The solver algorithm is based on the recursive backtracking algorithm described in [1].
+This desing uses the Factory Method pattern to allows interchange the algorithm without modifying the main program (sudokuSolver.py), thus reducing the coupling.
+
+By now, there is only one algorithm supported and is called *recursive Backtracking*. It is based on the recursive backtracking algorithm described in [1].
 
 In **sudokus_for_testing** directory there are sudokus of different complexity levels for testing the application.
 
 An example of use:
 
 >~~~
->>>> python sudokuSolver.py E:/sudokus_for_testing/fiendish.csv E:/sudokus_for_testing/sudokuOUT.csv
+>>>> python sudokuSolver.py Backtracking E:/sudokus_for_testing/fiendish.csv E:/sudokus_for_testing/sudokuOUT.csv
 >
 >This is the given sudoku:
 >
