@@ -10,14 +10,29 @@ from matplotlib.mlab import find
 
 
 class recursiveBacktracking(object):
+    ''' 
+    The algorithm implemented in this class is based on the recursive 
+    backtracking algorithm described in [1].
+
+    [1] http://es.wikipedia.org/wiki/Sudoku_backtracking
+    '''
     
     def __init__(self):
+        '''
+        Dummy constructor. It takes no parameters. The real initialization
+        is done when the method `setInitialGrid` is called.
+        '''
+        
         self.solution = None
         self.original = None
         self.matbool = None
         
     def setInitialGrid(self,original):
         '''
+        This method sets the initial sudoku that will be used within the class.
+        
+        Parameters
+        ----------        
         matrix: array_like
             It contains the initial sudoku matrix.
         '''
@@ -56,11 +71,16 @@ class recursiveBacktracking(object):
     
 
     def solve(self):
-        ''' 
-        The algorithm implemented in this method is based on the recursive 
-        backtracking algorithm described in [1].
-    
-        [1] http://es.wikipedia.org/wiki/Sudoku_backtracking
+        '''
+        solve method implements Recursive Backtracking. 
+        It initializes the recursive function that takes care of the
+        whole algorithm
+        
+        Parameters
+        ----------
+        solution: array_like
+            Retuns a numpy array of 9x9 that contains the solution of the
+            initial sudoku given in `setInitialGrid`
         '''
         
         self.solveRec(0,0)
@@ -72,6 +92,7 @@ class recursiveBacktracking(object):
     def solveRec(self, i, j): 
         '''
         This is a helper recursive function used by solver.
+        It stores the solved sudoku in `self.solution`
         
         Parameters
         ----------
